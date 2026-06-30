@@ -1,0 +1,59 @@
+# Node.js / React
+node_modules/
+dist/
+build/
+.npm
+.eslintcache
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+conversadesk/node_modules/
+conversadesk/dist/
+
+# Python / FastAPI
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.env
+venv/
+tenv/
+backend/tenv/
+backend/venv/
+
+# SQLite & Database
+*.sqlite3
+*.db
+# backend/conversadesk.db
+# backend/chroma_db/
+# chroma_db/
+
+# IDE / OS Files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+backend 
+
+# Credentials
+credentials.json
+token.json
