@@ -39,6 +39,8 @@ def dashboard_analytics():
     department_breakdown = [{"name": dept, "value": count} for dept, count in dept_counts]
 
     positive_sentiment = db.query(Ticket).filter(Ticket.sentiment == "Positive").count()
+    neutral_sentiment = db.query(Ticket).filter(Ticket.sentiment == "Neutral").count()
+    negative_sentiment = db.query(Ticket).filter(Ticket.sentiment == "Negative").count()
     csat = int((positive_sentiment / total_tickets) * 100) if total_tickets > 0 else 0
 
     db.close()
@@ -52,7 +54,12 @@ def dashboard_analytics():
         "sla_health": sla_health,
         "most_active_department": most_active_dept,
         "department_breakdown": department_breakdown,
-        "csat": csat
+        "csat": csat,
+        "sentiment_breakdown": {
+            "Positive": positive_sentiment,
+            "Neutral": neutral_sentiment,
+            "Negative": negative_sentiment
+        }
     }
 
 @router.get("/generate-report")

@@ -77,7 +77,7 @@ export default function TicketsPage() {
 
   const fetchTickets = async () => {
     try {
-      const res = await fetch(`${API_BASE}/recent-tickets`);
+      const res = await fetch(`${API_BASE}/all-tickets`);
       if (res.ok) {
         const data = await res.json();
         setTickets(Array.isArray(data) ? data : []);

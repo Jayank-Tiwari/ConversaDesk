@@ -52,6 +52,7 @@ export default function AnalyticsSection() {
         }
         .chart-area {
           flex: 1;
+          min-width: 0;
         }
         .insights-panel {
           width: 240px;

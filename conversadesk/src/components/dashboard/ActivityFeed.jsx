@@ -82,6 +82,9 @@ export default function ActivityFeed() {
           flex-direction: column;
           gap: var(--space-lg);
           margin-top: var(--space-md);
+          max-height: 300px;
+          overflow-y: auto;
+          padding-right: 10px;
         }
         .timeline::before {
           content: '';

@@ -4,9 +4,8 @@ import { getPriorityColor } from '../../utils/helpers';
 
 export default function SimilarTicketsModal({ similarTickets, onClose }) {
   return (
-    <>
-      <div className="modal-backdrop" onClick={onClose} />
-      <div className="modal-content" style={{ maxWidth: '700px', width: '90%' }}>
+    <div className="modal-backdrop" onClick={onClose}>
+      <div className="modal-content" style={{ maxWidth: '700px', width: '90%' }} onClick={e => e.stopPropagation()}>
         <div className="modal-header flex justify-between items-center">
           <h2 className="text-xl font-bold">Similar Past Tickets</h2>
           <button className="btn btn-ghost btn-icon" onClick={onClose}>
@@ -41,6 +40,6 @@ export default function SimilarTicketsModal({ similarTickets, onClose }) {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }

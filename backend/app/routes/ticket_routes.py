@@ -101,7 +101,7 @@ def recent_tickets():
             Ticket.id.desc()
         )
 
-        .limit(2)
+        .limit(5)
 
         .all()
     )

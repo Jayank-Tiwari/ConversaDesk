@@ -39,9 +39,8 @@ export default function KBDraftsModal({ onClose }) {
   };
 
   return (
-    <>
-      <div className="modal-backdrop" onClick={onClose} />
-      <div className="modal-content" style={{ maxWidth: '800px', width: '90%' }}>
+    <div className="modal-backdrop" onClick={onClose}>
+      <div className="modal-content" style={{ maxWidth: '800px', width: '90%' }} onClick={e => e.stopPropagation()}>
         <div className="modal-header flex justify-between items-center">
           <h2 className="text-xl font-bold">Knowledge Base Drafts</h2>
           <button className="btn btn-ghost btn-icon" onClick={onClose}>
@@ -91,6 +90,6 @@ export default function KBDraftsModal({ onClose }) {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }

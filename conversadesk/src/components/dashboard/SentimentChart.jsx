@@ -10,7 +10,7 @@ export default function SentimentChart() {
   useEffect(() => {
     const fetchAnalytics = async () => {
       try {
-        const res = await fetch(`${API_BASE}/generate-report`);
+        const res = await fetch(`${API_BASE}/dashboard-analytics`);
         if (res.ok) {
           const json = await res.json();
           setData(json);
@@ -28,18 +28,10 @@ export default function SentimentChart() {
     return <div className="card skeleton" style={{ height: '360px' }}></div>;
   }
 
-  // Parse the report data string into JSON if necessary, or assuming generate-report returns JSON
-  let reportData = {};
-  try {
-    reportData = typeof data === 'string' ? JSON.parse(data) : data;
-  } catch(e) {
-    // ignore
-  }
-  
   const sentimentData = [
-    { name: 'Positive', value: reportData?.customer_insights?.["Positive Sentiment"] || 0, color: 'var(--color-success)' },
-    { name: 'Neutral', value: reportData?.customer_insights?.["Neutral Sentiment"] || 0, color: 'var(--color-warning)' },
-    { name: 'Negative', value: reportData?.customer_insights?.["Negative Sentiment"] || 0, color: 'var(--color-danger)' },
+    { name: 'Positive', value: data?.sentiment_breakdown?.Positive || 0, color: 'var(--color-success)' },
+    { name: 'Neutral', value: data?.sentiment_breakdown?.Neutral || 0, color: 'var(--color-warning)' },
+    { name: 'Negative', value: data?.sentiment_breakdown?.Negative || 0, color: 'var(--color-danger)' },
   ];
 
   const CustomTooltip = ({ active, payload }) => {

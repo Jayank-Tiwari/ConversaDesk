@@ -28,6 +28,10 @@ export default function DashboardPage() {
           grid-template-columns: 2fr 1fr;
           gap: var(--space-lg);
         }
+        .dashboard-row-2 > * {
+          min-width: 0;
+          min-height: 0;
+        }
         @media (max-width: 1024px) {
           .dashboard-row-2 {
             grid-template-columns: 1fr;
