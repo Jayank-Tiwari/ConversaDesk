@@ -13,6 +13,9 @@ export default function TicketsPage() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  
   const [showMagicModal, setShowMagicModal] = useState(false);
   const [magicTicket, setMagicTicket] = useState(null);
   const [magicResolution, setMagicResolution] = useState('');
@@ -99,11 +102,18 @@ export default function TicketsPage() {
     }
   }, [lastMessage]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, statusFilter]);
+
   const filteredTickets = tickets.filter(t => {
     const matchesSearch = (t.subject || t.summary || t.ticket_code || '').toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === 'all' || (t.status || '').toLowerCase() === statusFilter;
     return matchesSearch && matchesStatus;
   });
+
+  const totalPages = Math.ceil(filteredTickets.length / itemsPerPage);
+  const currentTickets = filteredTickets.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
     <div className="page">
@@ -148,7 +158,7 @@ export default function TicketsPage() {
             <button className="btn btn-secondary btn-icon"><Filter size={16} /></button>
           </div>
           <div className="text-sm text-tertiary">
-            Showing {filteredTickets.length} tickets
+            Showing {currentTickets.length} of {filteredTickets.length} tickets
           </div>
         </div>
 
@@ -182,7 +192,7 @@ export default function TicketsPage() {
                   </td>
                 </tr>
               ) : (
-                filteredTickets.map(ticket => (
+                currentTickets.map(ticket => (
                   <tr key={ticket.id} className="cursor-pointer card-interactive">
                     <td>
                       <div className="font-medium text-primary mb-xs">{ticket.subject || ticket.summary || 'No Subject'}</div>
@@ -261,6 +271,28 @@ export default function TicketsPage() {
             </tbody>
           </table>
         </div>
+        
+        {totalPages > 1 && (
+          <div className="flex justify-between items-center p-md border-t border-subtle">
+            <button 
+              className="btn btn-secondary btn-sm" 
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+            >
+              Previous
+            </button>
+            <div className="text-sm text-tertiary">
+              Page {currentPage} of {totalPages}
+            </div>
+            <button 
+              className="btn btn-secondary btn-sm" 
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
 
       {showMagicModal && (
