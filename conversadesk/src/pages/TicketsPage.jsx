@@ -132,7 +132,7 @@ export default function TicketsPage() {
         </div>
       </div>
 
-      <div className="card h-full flex-col p-0">
+      <div className="card p-0" style={{ overflow: 'hidden' }}>
         <div className="flex items-center justify-between p-md border-b border-subtle bg-tertiary">
           <div className="flex items-center gap-sm flex-1">
             <div className="input-with-icon" style={{ maxWidth: '300px' }}>
@@ -147,6 +147,7 @@ export default function TicketsPage() {
             </div>
             <select 
               className="select" 
+              style={{ maxWidth: '200px' }}
               value={statusFilter}
               onChange={e => setStatusFilter(e.target.value)}
             >
@@ -162,7 +163,7 @@ export default function TicketsPage() {
           </div>
         </div>
 
-        <div className="table-container flex-1">
+        <div className="table-container flex-1" style={{ border: 'none', borderRadius: 0 }}>
           <table>
             <thead>
               <tr>
@@ -195,7 +196,13 @@ export default function TicketsPage() {
                 currentTickets.map(ticket => (
                   <tr key={ticket.id} className="cursor-pointer card-interactive">
                     <td>
-                      <div className="font-medium text-primary mb-xs">{ticket.subject || ticket.summary || 'No Subject'}</div>
+                      <div 
+                        className="font-medium text-primary mb-xs" 
+                        style={{ maxWidth: '300px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                        title={ticket.subject || ticket.summary || 'No Subject'}
+                      >
+                        {ticket.subject || ticket.summary || 'No Subject'}
+                      </div>
                       <div className="text-xs font-mono text-tertiary">{ticket.ticket_code || `#${ticket.id}`}</div>
                     </td>
                     <td>
